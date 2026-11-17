@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  O ESP32 fala HTTP puro na porta 80: nao existe certificado nem TLS
+  numa caixinha sem internet. Em vez de liberar texto aberto para o
+  mundo inteiro, liberamos SO o endereco do proprio aparelho.
+-->
+<network-security-config>
+    <base-config cleartextTrafficPermitted="false" />
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="false">192.168.4.1</domain>
+        <domain includeSubdomains="false">newsbox.local</domain>
+    </domain-config>
+</network-security-config>

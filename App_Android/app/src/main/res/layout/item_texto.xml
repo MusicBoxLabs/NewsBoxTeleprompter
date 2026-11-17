@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Uma linha da PASTA DE NOTICIAS.
+
+  O nome do texto e o que a pessoa procura; embaixo, o unico numero que
+  interessa antes de gravar: quanto tempo aquilo leva na boca. Contagem
+  de palavras e tempo de locucao saem prontos da caixinha — quem conta
+  e o firmware, com a mesma conta para todo mundo.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:layout_marginBottom="12dp"
+    android:background="@drawable/fundo_item"
+    android:paddingLeft="18dp" android:paddingRight="18dp"
+    android:paddingTop="18dp" android:paddingBottom="18dp"
+    android:clickable="true" android:focusable="true">
+
+    <LinearLayout
+        android:layout_width="0dp" android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/itemNome"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:singleLine="true" android:ellipsize="end"
+            android:textColor="@color/ambar" android:textSize="16sp"
+            android:fontFamily="monospace" android:letterSpacing="0.04"
+            android:text="" />
+
+        <TextView
+            android:id="@+id/itemInfo"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:textColor="@color/texto_fraco" android:textSize="12sp"
+            android:fontFamily="monospace"
+            android:text="" />
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="22dp" android:layout_height="22dp"
+        android:layout_marginLeft="14dp"
+        android:src="@drawable/ic_avancar"
+        android:contentDescription="@string/abrir" />
+</LinearLayout>

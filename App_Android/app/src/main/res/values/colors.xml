@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  A paleta do NEWS BOX, num lugar so.
+
+  Sao as mesmas cores da pagina web e do texto rolando: ambar de
+  terminal antigo sobre preto. Nao e nostalgia gratuita — letra amarela
+  sobre fundo escuro e o que se le melhor de longe, com luz de estudio
+  batendo na tela, e foi por isso que os prompters de verdade sempre
+  foram assim.
+-->
+<resources>
+    <color name="fundo">#0A0A00</color>
+    <color name="veu">#CC0A0A00</color>
+
+    <color name="ambar">#F5E642</color>
+    <color name="ambar_forte">#FFDD00</color>
+    <color name="ambar_fraco">#C8BE60</color>
+    <color name="ambar_apagado">#8A7E28</color>
+
+    <color name="texto_fraco">#9A9270</color>
+    <color name="texto_apagado">#7A7460</color>
+
+    <color name="borda">#3A3800</color>
+    <color name="borda_forte">#6A6430</color>
+    <color name="caixa">#C8111100</color>
+    <color name="caixa_ativa">#D22A2600</color>
+
+    <color name="vermelho_rec">#FF3B30</color>
+    <color name="vermelho_apagado">#4A3A20</color>
+</resources>

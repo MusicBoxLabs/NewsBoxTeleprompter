@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">NewsBox Teleprompter</string>
+
+    <string name="marca_1">NEWS BOX</string>
+    <string name="marca_2">TELEPROMPTER</string>
+
+    <string name="menu_textos">PASTA DE NOTÍCIAS</string>
+    <string name="menu_textos_sub">textos guardados neste aparelho</string>
+    <string name="menu_ajustes">AJUSTES DE TELA</string>
+    <string name="menu_ajustes_sub">tamanho da letra</string>
+
+    <string name="rodape_pe">O pé desce o texto enquanto pisa</string>
+    <string name="rodape_dedo">O dedo sobe e desce, nos botões</string>
+    <string name="rodape_redacao">importar textos:</string>
+    <string name="endereco_redacao">newsbox/redacao</string>
+
+    <string name="tamanho_letra">TAMANHO DA LETRA</string>
+    <string name="tamanho_menor">MENOR</string>
+    <string name="tamanho_normal">NORMAL</string>
+    <string name="tamanho_maior">MAIOR</string>
+    <string name="tamanho_guardado">Fica gravado no aparelho. Da próxima vez que abrir, já está do seu jeito.</string>
+
+    <string name="imagem_tela">IMAGEM DA TELA</string>
+    <string name="imagem_normal">NORMAL</string>
+    <string name="imagem_espelhada">ESPELHADA</string>
+    <string name="espelho_explica">ESPELHADA é para deitar o aparelho na base de um teleprompter de estúdio, aquele de vidro inclinado. O vidro devolve a imagem ao contrário, então o texto precisa sair ao contrário para chegar certo ao seu olho.\n\nNesse modo a câmera some da tela: lá dentro ela só veria o preto do fundo. O texto fica sobre preto puro, que é o que dá contraste no vidro.</string>
+
+    <string name="o_pedal">O PEDAL</string>
+    <string name="pedal_segurar">pisar e segurar</string>
+    <string name="pedal_segurar_o_que">desce o texto</string>
+    <string name="pedal_dois">2 toques</string>
+    <string name="pedal_dois_o_que">volta ao começo, sem parar a câmera</string>
+    <string name="pedal_tres">3 toques</string>
+    <string name="pedal_tres_o_que">encerra a gravação</string>
+
+    <string name="subir">SUBIR</string>
+    <string name="descer">DESCER</string>
+    <string name="gravar">GRAVAR</string>
+    <string name="parar">PARAR</string>
+    <string name="parado">PARADO</string>
+    <string name="gravando">GRAVANDO</string>
+
+    <string name="voltar">voltar</string>
+    <string name="abrir">abrir</string>
+</resources>

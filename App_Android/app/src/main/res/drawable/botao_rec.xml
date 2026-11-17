@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- O anel do REC. Gravando, ele fica vermelho: e o unico vermelho do
+     aparelho inteiro, para nao haver duvida sobre o que esta ligado. -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_selected="true">
+        <shape android:shape="oval">
+            <solid android:color="#EB3C0806" />
+            <stroke android:width="2dp" android:color="@color/vermelho_rec" />
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="oval">
+            <solid android:color="#E61A1800" />
+            <stroke android:width="2dp" android:color="@color/ambar_fraco" />
+        </shape>
+    </item>
+</selector>

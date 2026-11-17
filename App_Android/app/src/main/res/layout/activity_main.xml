@@ -1,0 +1,688 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ═══════════════════════════════════════════════════════════
+   NEWS BOX TELEPROMPTER — a tela inteira, em quatro camadas
+  ═══════════════════════════════════════════════════════════
+
+   1. a camera frontal, sempre ligada, do primeiro segundo
+   2. o texto rolando (so na LEITURA)
+   3. uma das quatro telas: INICIO, PASTA, AJUSTES, LEITURA
+   4. o aviso, quando ha o que avisar
+
+   A camera fica atras de TUDO de proposito. Na versao anterior ela so
+   acendia na hora de gravar, e o susto de se ver aparecer de repente
+   estragava a primeira tomada de todo mundo. Aqui a pessoa ja abre o
+   app se vendo: quando chega a hora, nao muda nada.
+
+   As telas de menu vestem um veu escuro por cima da imagem
+   (@color/veu). Nao e enfeite: sem ele, um rosto claro por tras
+   apagaria a letra amarela.
+-->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/raiz"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/fundo">
+
+    <!-- ═══ 1. CAMERA ═══════════════════════════════════════ -->
+    <TextureView
+        android:id="@+id/preview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <!-- ═══ 2. O TEXTO ══════════════════════════════════════ -->
+    <br.com.newsboxteleprompter.PrompterView
+        android:id="@+id/prompter"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+
+    <!-- ═══ 3a. INICIO ══════════════════════════════════════ -->
+    <!-- v1.1: com o celular deitado a tela de inicio nao cabe na
+         altura; por isso ela rola. Em pe, o fillViewport faz tudo ficar
+         exatamente como antes (o espaco elastico continua empurrando o
+         quadro de baixo para o rodape). -->
+    <ScrollView
+        android:id="@+id/telaInicio"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:background="@color/veu"
+        android:paddingLeft="26dp"
+        android:paddingRight="26dp"
+        android:paddingTop="30dp"
+        android:paddingBottom="22dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- A MARCA, e so ela. Foi pedido assim: quem abre o aparelho
+             tem que ver o nome do aparelho, nao uma barra de opcoes. -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/marca_1"
+            android:textColor="@color/ambar"
+            android:textSize="42sp"
+            android:fontFamily="monospace"
+            android:textStyle="bold"
+            android:letterSpacing="0.06"
+            android:gravity="center"
+            android:shadowColor="#73F5E642"
+            android:shadowDx="0" android:shadowDy="0" android:shadowRadius="18" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/marca_2"
+            android:textColor="@color/ambar_forte"
+            android:textSize="16sp"
+            android:fontFamily="monospace"
+            android:letterSpacing="0.40"
+            android:gravity="center"
+            android:paddingLeft="12dp"
+            android:layout_marginTop="4dp" />
+
+        <View
+            android:layout_width="108dp"
+            android:layout_height="1dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="14dp"
+            android:background="#5A5410" />
+
+        
+
+        <!-- ── MENU: duas portas, so ──────────────────────── -->
+        <LinearLayout
+            android:id="@+id/itemTextos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginTop="56dp"
+            android:background="@drawable/fundo_item_destaque"
+            android:paddingLeft="20dp" android:paddingRight="20dp"
+            android:paddingTop="22dp" android:paddingBottom="22dp"
+            android:clickable="true" android:focusable="true">
+
+            <ImageView
+                android:layout_width="26dp" android:layout_height="26dp"
+                android:src="@drawable/ic_pasta"
+                android:contentDescription="@string/menu_textos" />
+
+            <LinearLayout
+                android:layout_width="0dp" android:layout_height="wrap_content"
+                android:layout_weight="1" android:orientation="vertical"
+                android:layout_marginLeft="16dp">
+                <TextView
+                    android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="@string/menu_textos"
+                    android:textColor="@color/ambar" android:textSize="17sp"
+                    android:fontFamily="monospace" android:letterSpacing="0.05" />
+                <TextView
+                    android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:text="@string/menu_textos_sub"
+                    android:textColor="@color/texto_fraco" android:textSize="12sp"
+                    android:fontFamily="monospace" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/itemAjustes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/fundo_item"
+            android:paddingLeft="20dp" android:paddingRight="20dp"
+            android:paddingTop="22dp" android:paddingBottom="22dp"
+            android:clickable="true" android:focusable="true">
+
+            <ImageView
+                android:layout_width="26dp" android:layout_height="26dp"
+                android:src="@drawable/ic_ajustes"
+                android:contentDescription="@string/menu_ajustes" />
+
+            <LinearLayout
+                android:layout_width="0dp" android:layout_height="wrap_content"
+                android:layout_weight="1" android:orientation="vertical"
+                android:layout_marginLeft="16dp">
+                <TextView
+                    android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="@string/menu_ajustes"
+                    android:textColor="@color/ambar_fraco" android:textSize="17sp"
+                    android:fontFamily="monospace" android:letterSpacing="0.05" />
+                <TextView
+                    android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:text="@string/menu_ajustes_sub"
+                    android:textColor="@color/texto_apagado" android:textSize="12sp"
+                    android:fontFamily="monospace" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- ── RODAPE: como o texto anda, e nada alem disso ── -->
+        <View
+            android:layout_width="match_parent" android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <LinearLayout
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/fundo_caixa"
+            android:paddingLeft="18dp" android:paddingRight="18dp"
+            android:paddingTop="16dp" android:paddingBottom="16dp">
+
+            <LinearLayout
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="horizontal" android:gravity="center_vertical">
+                <ImageView android:layout_width="20dp" android:layout_height="20dp"
+                    android:src="@drawable/ic_pe" android:contentDescription="@string/rodape_pe" />
+                <TextView
+                    android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:layout_marginLeft="12dp"
+                    android:text="@string/rodape_pe"
+                    android:textColor="@color/ambar_fraco" android:textSize="13sp"
+                    android:fontFamily="monospace" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="horizontal" android:gravity="center_vertical"
+                android:layout_marginTop="10dp">
+                <ImageView android:layout_width="20dp" android:layout_height="20dp"
+                    android:src="@drawable/ic_dedo" android:contentDescription="@string/rodape_dedo" />
+                <TextView
+                    android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:layout_marginLeft="12dp"
+                    android:text="@string/rodape_dedo"
+                    android:textColor="@color/ambar_fraco" android:textSize="13sp"
+                    android:fontFamily="monospace" />
+            </LinearLayout>
+        </LinearLayout>
+
+        
+    </LinearLayout>
+    </ScrollView>
+
+    <!-- ═══ 3b. PASTA DE NOTICIAS ═══════════════════════════ -->
+    <LinearLayout
+        android:id="@+id/telaTextos"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/veu"
+        android:visibility="gone"
+        android:paddingLeft="22dp" android:paddingRight="22dp"
+        android:paddingTop="26dp" android:paddingBottom="20dp">
+
+        <LinearLayout
+            android:id="@+id/voltarTextos"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="horizontal" android:gravity="center_vertical"
+            android:paddingBottom="14dp"
+            android:clickable="true" android:focusable="true">
+            <ImageView android:layout_width="22dp" android:layout_height="22dp"
+                android:src="@drawable/ic_voltar" android:contentDescription="@string/voltar" />
+            <TextView
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:layout_marginLeft="14dp"
+                android:text="@string/menu_textos"
+                android:textColor="@color/ambar" android:textSize="22sp"
+                android:fontFamily="monospace" android:letterSpacing="0.06" />
+        </LinearLayout>
+
+        <View android:layout_width="match_parent" android:layout_height="1dp"
+              android:background="@color/borda" />
+
+        <!--  A lista ROLA, e a Redacao rola junto, logo depois do
+              ultimo texto.
+
+              Antes ela ficava presa no rodape da tela, e ali brigava
+              com a barra de navegacao do proprio celular: os tres
+              botoes do Android passavam por cima e a linha ficava pela
+              metade. Presa no rodape ela tambem so cabia enquanto
+              houvesse poucos textos — empilhando noticia, a lista batia
+              nela e o resto sumia.
+
+              Solta dentro da rolagem, ela resolve os dois: nunca briga
+              com nada, e quem tem vinte textos so desliza o dedo ate o
+              fim para chegar nela.                                    -->
+        <ScrollView
+            android:layout_width="match_parent" android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginTop="18dp"
+            android:scrollbars="none"
+            android:overScrollMode="ifContentScrolls"
+            android:fillViewport="true">
+            <LinearLayout
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="10dp">
+
+                <LinearLayout
+                    android:id="@+id/listaTextos"
+                    android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="vertical" />
+
+                <TextView
+                    android:id="@+id/vaziosTextos"
+                    android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:gravity="center"
+                    android:lineSpacingMultiplier="1.5"
+                    android:text=""
+                    android:textColor="@color/texto_apagado" android:textSize="13sp"
+                    android:fontFamily="monospace" />
+
+                <LinearLayout
+                    android:id="@+id/botaoImportar"
+                    android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="horizontal" android:gravity="center"
+                    android:layout_marginTop="6dp"
+                    android:background="@drawable/fundo_caixa"
+                    android:paddingLeft="16dp" android:paddingRight="16dp"
+                    android:paddingTop="15dp" android:paddingBottom="15dp"
+                    android:clickable="true" android:focusable="true">
+                    <TextView
+                        android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="IMPORTAR TEXTO (.txt)"
+                        android:textColor="@color/ambar_forte" android:textSize="13sp"
+                        android:fontFamily="monospace" />
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+
+    <!-- ═══ 3c. AJUSTES DE TELA ═════════════════════════════ -->
+    <LinearLayout
+        android:id="@+id/telaAjustes"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/veu"
+        android:visibility="gone"
+        android:paddingLeft="22dp" android:paddingRight="22dp"
+        android:paddingTop="26dp" android:paddingBottom="20dp">
+
+        <LinearLayout
+            android:id="@+id/voltarAjustes"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="horizontal" android:gravity="center_vertical"
+            android:paddingBottom="14dp"
+            android:clickable="true" android:focusable="true">
+            <ImageView android:layout_width="22dp" android:layout_height="22dp"
+                android:src="@drawable/ic_voltar" android:contentDescription="@string/voltar" />
+            <TextView
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:layout_marginLeft="14dp"
+                android:text="@string/menu_ajustes"
+                android:textColor="@color/ambar" android:textSize="22sp"
+                android:fontFamily="monospace" android:letterSpacing="0.06" />
+        </LinearLayout>
+
+        <View android:layout_width="match_parent" android:layout_height="1dp"
+              android:background="@color/borda" />
+
+        <!--  AJUSTES cresceu: alem do corpo da letra ha agora o modo
+              espelho. Numa tela pequena, ou com a letra do sistema
+              graude, isso deixaria de caber — entao o miolo rola.     -->
+        <ScrollView
+            android:layout_width="match_parent" android:layout_height="0dp"
+            android:layout_weight="1"
+            android:scrollbars="none"
+            android:fillViewport="true">
+        <LinearLayout
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="@string/tamanho_letra"
+            android:textColor="@color/ambar_apagado" android:textSize="12sp"
+            android:fontFamily="monospace" android:letterSpacing="0.12" />
+
+        <!-- Tres tamanhos, e so tres. Um controle continuo daria mil
+             posicoes; nenhuma delas seria "a certa", e a pessoa ficaria
+             ajustando em vez de ler. -->
+        <LinearLayout
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="14dp"
+            android:baselineAligned="false">
+
+            <LinearLayout
+                android:id="@+id/letraMenor"
+                android:layout_width="0dp" android:layout_weight="1"
+                android:layout_height="96dp"
+                android:orientation="vertical" android:gravity="center"
+                android:background="@drawable/fundo_escolha"
+                android:clickable="true" android:focusable="true">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="Aa" android:textSize="15sp" android:fontFamily="monospace"
+                    android:textColor="@color/ambar_fraco" />
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/tamanho_menor" android:textSize="11sp"
+                    android:fontFamily="monospace" android:letterSpacing="0.08"
+                    android:textColor="@color/ambar_fraco" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/letraNormal"
+                android:layout_width="0dp" android:layout_weight="1"
+                android:layout_height="96dp"
+                android:layout_marginLeft="10dp" android:layout_marginRight="10dp"
+                android:orientation="vertical" android:gravity="center"
+                android:background="@drawable/fundo_escolha"
+                android:clickable="true" android:focusable="true">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="Aa" android:textSize="23sp" android:fontFamily="monospace"
+                    android:textColor="@color/ambar_fraco" />
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/tamanho_normal" android:textSize="11sp"
+                    android:fontFamily="monospace" android:letterSpacing="0.08"
+                    android:textColor="@color/ambar_fraco" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/letraMaior"
+                android:layout_width="0dp" android:layout_weight="1"
+                android:layout_height="96dp"
+                android:orientation="vertical" android:gravity="center"
+                android:background="@drawable/fundo_escolha"
+                android:clickable="true" android:focusable="true">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="Aa" android:textSize="31sp" android:fontFamily="monospace"
+                    android:textColor="@color/ambar_fraco" />
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/tamanho_maior" android:textSize="11sp"
+                    android:fontFamily="monospace" android:letterSpacing="0.08"
+                    android:textColor="@color/ambar_fraco" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/fundo_caixa"
+            android:paddingLeft="16dp" android:paddingRight="16dp"
+            android:paddingTop="15dp" android:paddingBottom="15dp"
+            android:text="@string/tamanho_guardado"
+            android:textColor="@color/texto_apagado" android:textSize="12sp"
+            android:fontFamily="monospace" android:lineSpacingMultiplier="1.5" />
+
+        <!-- ── IMAGEM DA TELA ─────────────────────────────── -->
+        <TextView
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="@string/imagem_tela"
+            android:textColor="@color/ambar_apagado" android:textSize="12sp"
+            android:fontFamily="monospace" android:letterSpacing="0.12" />
+
+        <LinearLayout
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="14dp"
+            android:baselineAligned="false">
+
+            <LinearLayout
+                android:id="@+id/imagemNormal"
+                android:layout_width="0dp" android:layout_weight="1"
+                android:layout_height="86dp"
+                android:orientation="vertical" android:gravity="center"
+                android:background="@drawable/fundo_escolha"
+                android:clickable="true" android:focusable="true">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="NEWS" android:textSize="19sp" android:fontFamily="monospace"
+                    android:textColor="@color/ambar_fraco" />
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/imagem_normal" android:textSize="11sp"
+                    android:fontFamily="monospace" android:letterSpacing="0.08"
+                    android:textColor="@color/ambar_fraco" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/imagemEspelhada"
+                android:layout_width="0dp" android:layout_weight="1"
+                android:layout_height="86dp"
+                android:layout_marginLeft="10dp"
+                android:orientation="vertical" android:gravity="center"
+                android:background="@drawable/fundo_escolha"
+                android:clickable="true" android:focusable="true">
+                <!-- A amostra ja aparece invertida: e mais rapido de
+                     entender do que qualquer legenda. -->
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="NEWS" android:textSize="19sp" android:fontFamily="monospace"
+                    android:scaleX="-1"
+                    android:textColor="@color/ambar_fraco" />
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/imagem_espelhada" android:textSize="11sp"
+                    android:fontFamily="monospace" android:letterSpacing="0.08"
+                    android:textColor="@color/ambar_fraco" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/fundo_caixa"
+            android:paddingLeft="16dp" android:paddingRight="16dp"
+            android:paddingTop="15dp" android:paddingBottom="15dp"
+            android:text="@string/espelho_explica"
+            android:textColor="@color/texto_apagado" android:textSize="12sp"
+            android:fontFamily="monospace" android:lineSpacingMultiplier="1.5" />
+
+        <!-- A cola do pedal fica aqui, e nao na tela de leitura: e para
+             consultar antes, nao no meio da locucao. -->
+        <LinearLayout
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/fundo_caixa"
+            android:paddingLeft="18dp" android:paddingRight="18dp"
+            android:paddingTop="16dp" android:paddingBottom="16dp">
+
+            <TextView
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="@string/o_pedal"
+                android:textColor="@color/ambar_apagado" android:textSize="12sp"
+                android:fontFamily="monospace" android:letterSpacing="0.12" />
+
+            <TextView
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textSize="13sp" android:fontFamily="monospace"
+                android:textColor="@color/ambar_fraco"
+                android:lineSpacingMultiplier="1.4"
+                android:text="pisar e segurar  desce o texto" />
+            <TextView
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:textSize="13sp" android:fontFamily="monospace"
+                android:textColor="@color/ambar_fraco"
+                android:lineSpacingMultiplier="1.4"
+                android:text="2 toques  volta ao começo, sem parar a câmera" />
+            <TextView
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:textSize="13sp" android:fontFamily="monospace"
+                android:textColor="@color/ambar_fraco"
+                android:lineSpacingMultiplier="1.4"
+                android:text="3 toques  encerra a gravação" />
+        </LinearLayout>
+
+        </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+
+    <!-- ═══ 3d. LEITURA ═════════════════════════════════════ -->
+    <!--  Esta tela e um QUADRO, nao uma capa: barra em cima, barra em
+          baixo, e um vazio no meio por onde o texto e a camera
+          aparecem. Por isso o miolo nao tem fundo nenhum.            -->
+    <LinearLayout
+        android:id="@+id/telaLeitura"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:id="@+id/barraTopo"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="horizontal" android:gravity="center_vertical"
+            android:background="#DB0D0D00"
+            android:paddingLeft="16dp" android:paddingRight="16dp"
+            android:paddingTop="13dp" android:paddingBottom="13dp">
+
+            <LinearLayout
+                android:layout_width="0dp" android:layout_weight="1"
+                android:layout_height="wrap_content" android:orientation="vertical">
+                <TextView
+                    android:id="@+id/tituloLeitura"
+                    android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:singleLine="true" android:ellipsize="end"
+                    android:text=""
+                    android:textColor="@color/ambar" android:textSize="14sp"
+                    android:fontFamily="monospace" android:letterSpacing="0.03" />
+                <TextView
+                    android:id="@+id/restanteLeitura"
+                    android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:text=""
+                    android:textColor="@color/ambar_apagado" android:textSize="11sp"
+                    android:fontFamily="monospace" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/led"
+                android:layout_width="11dp" android:layout_height="11dp"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/led_gravacao"
+                android:visibility="invisible" />
+        </LinearLayout>
+
+        <View android:layout_width="match_parent" android:layout_height="1dp"
+              android:background="@color/borda" />
+
+        <!-- O vazio. E aqui que o texto rola. -->
+        <View
+            android:layout_width="match_parent" android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <View android:layout_width="match_parent" android:layout_height="1dp"
+              android:background="@color/borda" />
+
+        <LinearLayout
+            android:id="@+id/barraControles"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="horizontal" android:gravity="center_vertical"
+            android:background="#E60D0D00"
+            android:baselineAligned="false"
+            android:paddingLeft="24dp" android:paddingRight="24dp"
+            android:paddingTop="14dp" android:paddingBottom="20dp">
+
+            <!-- SUBIR: so existe para o dedo. O pe nunca sobe — foi
+                 decidido assim para o pedal ter um significado unico. -->
+            <LinearLayout
+                android:layout_width="0dp" android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" android:gravity="center">
+                <FrameLayout
+                    android:id="@+id/botaoSubir"
+                    android:layout_width="60dp" android:layout_height="60dp"
+                    android:background="@drawable/botao_redondo"
+                    android:clickable="true" android:focusable="true">
+                    <ImageView
+                        android:layout_width="26dp" android:layout_height="26dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_seta_cima"
+                        android:contentDescription="@string/subir" />
+                </FrameLayout>
+                <TextView
+                    android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:text="@string/subir"
+                    android:textColor="@color/texto_apagado" android:textSize="10sp"
+                    android:fontFamily="monospace" android:letterSpacing="0.06" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp" android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" android:gravity="center">
+                <FrameLayout
+                    android:id="@+id/botaoRec"
+                    android:layout_width="82dp" android:layout_height="82dp"
+                    android:background="@drawable/botao_rec"
+                    android:clickable="true" android:focusable="true">
+                    <View
+                        android:id="@+id/mioloRec"
+                        android:layout_width="30dp" android:layout_height="30dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/miolo_rec"
+                        android:duplicateParentState="true" />
+                </FrameLayout>
+                <TextView
+                    android:id="@+id/rotuloRec"
+                    android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:text="@string/gravar"
+                    android:textColor="@color/ambar_fraco" android:textSize="10sp"
+                    android:fontFamily="monospace" android:letterSpacing="0.06" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp" android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" android:gravity="center">
+                <FrameLayout
+                    android:id="@+id/botaoDescer"
+                    android:layout_width="60dp" android:layout_height="60dp"
+                    android:background="@drawable/botao_redondo"
+                    android:clickable="true" android:focusable="true">
+                    <ImageView
+                        android:layout_width="26dp" android:layout_height="26dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_seta_baixo"
+                        android:contentDescription="@string/descer" />
+                </FrameLayout>
+                <TextView
+                    android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:text="@string/descer"
+                    android:textColor="@color/texto_apagado" android:textSize="10sp"
+                    android:fontFamily="monospace" android:letterSpacing="0.06" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- ═══ 4. O AVISO ══════════════════════════════════════ -->
+    <!--  Fica fora das quatro telas de proposito: um recado sobre a
+          camera ou sobre a rede precisa aparecer em qualquer uma
+          delas, e some sozinho quando deixa de valer.               -->
+    <TextView
+        android:id="@+id/aviso"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginLeft="18dp" android:layout_marginRight="18dp"
+        android:layout_marginBottom="18dp"
+        android:background="@drawable/fundo_aviso"
+        android:paddingLeft="16dp" android:paddingRight="16dp"
+        android:paddingTop="12dp" android:paddingBottom="12dp"
+        android:textColor="@color/ambar" android:textSize="12sp"
+        android:fontFamily="monospace" android:lineSpacingMultiplier="1.4"
+        android:visibility="gone"
+        android:text="" />
+
+</FrameLayout>
